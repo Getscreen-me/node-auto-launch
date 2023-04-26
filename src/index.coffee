@@ -27,8 +27,10 @@ module.exports = class AutoLaunch
             @opts.appPath = path
 
         else if versions? and (versions.nw? or versions['node-webkit']? or versions.electron?)
-            @opts.appPath = process.execPath
-
+            if (/linux/.test process.platform) and process.env.APPIMAGE
+                @opts.appPath = process.env.APPIMAGE
+            else
+                @opts.appPath = process.execPath
         else
             throw new Error 'You must give a path (this is only auto-detected for NW.js and Electron apps)'
 
