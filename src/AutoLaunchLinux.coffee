@@ -12,13 +12,14 @@ module.exports =
     # Returns a Promise
     enable: ({appName, appPath, isHiddenOnLaunch}) ->
         hiddenArg = if isHiddenOnLaunch then ' --hidden' else ''
+        appPathExec = appPath.replace /\ /g, '\\ '
 
         data = """[Desktop Entry]
                 Type=Application
                 Version=1.0
                 Name=#{appName}
                 Comment=#{appName}startup script
-                Exec=#{appPath}#{hiddenArg}
+                Exec=#{appPathExec}#{hiddenArg}
                 StartupNotify=false
                 Terminal=false"""
 
